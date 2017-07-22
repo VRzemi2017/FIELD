@@ -20,7 +20,6 @@ public class LightsManager : MonoBehaviour {
     private LightController[ ] Lights;
 
     //メンバ変数
-    [SerializeField]
     private float m_intensity;
     private Color m_color;
 
