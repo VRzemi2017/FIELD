@@ -5,6 +5,7 @@ using UnityEngine;
 public class LightsManager : MonoBehaviour {
     private enum FLASH {
         NORMAL,
+        MULTUAL,
         FLASHMAX
     }
 
@@ -19,6 +20,7 @@ public class LightsManager : MonoBehaviour {
     private LightController[ ] Lights;
 
     //メンバ変数
+    [SerializeField]
     private float m_intensity;
     private Color m_color;
 
@@ -46,6 +48,7 @@ public class LightsManager : MonoBehaviour {
     private void LightUpdate( ) {
         switch ( FlashPattern ) {
             case FLASH.NORMAL:
+            case FLASH.MULTUAL:
                 SynchroFlashing( );
                 break;
         }
@@ -54,14 +57,19 @@ public class LightsManager : MonoBehaviour {
     //同時明滅処理
     private void SynchroFlashing( ) {
         //マジックナンバー使ってますが修正中
-        m_intensity = Mathf.Sin( Time.timeSinceLevelLoad ) + 0.5f;
+        float intensity_ratio;
+        intensity_ratio = Mathf.Sin( Time.timeSinceLevelLoad ) + 1.0f;
+        intensity_ratio = intensity_ratio / 2.0f;
+        m_intensity = MaxIntensity * intensity_ratio;
+
+        m_color = LightsColor;
     }
 
     //ライトに処理を設定する
     private void SetLights( ) {
         for ( int i = 0; i < Lights.Length; i++ ) {
-            Lights[ i ].Intensity = m_intensity;
-            Lights[ i ].LightColor = m_color;
+            Lights[i].Intensity = m_intensity;
+            Lights[i].LightColor = m_color;
         }
     }
 }
