@@ -3,23 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LightController : MonoBehaviour {
-    [SerializeField]
-    private float Intensity;
+
+    //set,get変数
+    public float Intensity { set {  m_intensity = value; } }
+    public Color LightColor { set { m_color = value; } }
+
+    //自身の"Light"の更新のため
     private Light m_light;
+
+    private float m_intensity;
+    private Color m_color;
 
 	// Use this for initialization
 	void Start ( ) {
         m_light = GetComponent<Light>( );
 	}
 	
-	// Update is called once per frame
-	void Update ( ) {
-		Flashing( );
-        Intensity = m_light.intensity;
+    //全ての処理後、レンダリングの直前に更新すれば良いので"LateUpdate"にしてあります。
+    //確実に"LightsManager"の"Update"の後にするためでもある
+	void LateUpdate ( ) {
+        m_light.intensity = m_intensity;
+        m_light.color = m_color;
 	}
-
-    //点滅処理をこの中で処理する
-    private void Flashing( ) {
-        m_light.intensity = Mathf.Sin( Time.time ) + 0.5f;
-    }
 }
