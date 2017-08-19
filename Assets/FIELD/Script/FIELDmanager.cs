@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FIELDmanager : MonoBehaviour {
+/*public class FIELDmanager : MonoBehaviour {
 
 	[SerializeField]
 	private GameObject FIELD_root;
@@ -20,4 +20,4 @@ public class FIELDmanager : MonoBehaviour {
 	void Update () {
 		
 	}
-}
+}*/
